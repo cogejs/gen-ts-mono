@@ -10,7 +10,7 @@ to: <%- drd || 'packages' %>/<%- projectName %>/package.json
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=10.16"
+    "node": ">=14"
   },
   "author": "<%- author %>",
   "license": "<%- license %>",
@@ -24,13 +24,12 @@ to: <%- drd || 'packages' %>/<%- projectName %>/package.json
     "verify": "npm pack && tar xf <%-archiveName%>*.tgz && tree package && npm run clean"
   },
   "dependencies": {
-    "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@loopback/build": "^6.4.0",
-    "@loopback/eslint-config": "^10.2.0",
-    "@loopback/testlab": "^3.4.0",
-    "@types/node": "^15.6.0"
+    "@loopback/build": "^7.0.0",
+    "@loopback/eslint-config": "^11.0.0",
+    "@loopback/testlab": "^3.4.2",
+    "@types/node": "^16.4.1"
   },
   "files": [
     "README.md",
