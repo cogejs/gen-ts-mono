@@ -3,7 +3,7 @@ const tslib_1 = require("tslib");
 const path_1 = (0, tslib_1.__importDefault)(require("path"));
 const micromatch_1 = (0, tslib_1.__importDefault)(require("micromatch"));
 const chalk_1 = (0, tslib_1.__importDefault)(require("chalk"));
-const coge_generator_1 = require("coge-generator");
+const generator_1 = require("@coge/generator");
 const pkg = require('../../package.json');
 const appName = path_1.default.basename(process.cwd()).replace(/[\/@\s\+%:\.]+?/g, '-');
 const licenses = [
@@ -19,7 +19,7 @@ const licenses = [
     { name: 'Unlicense', value: 'unlicense' },
     { name: 'No License (Copyrighted)', value: 'UNLICENSED' },
 ];
-class AppTemplate extends coge_generator_1.Template {
+class AppTemplate extends generator_1.Template {
     async init() {
         this._pkg = this.fs.readJsonSync('./package.json', { throws: false });
     }

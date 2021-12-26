@@ -1,6 +1,6 @@
 import path from 'path';
 import mm from 'micromatch';
-import {InstallOptions, Template} from 'coge-generator';
+import {InstallOptions, Template} from '@coge/generator';
 
 const parseNpmName = require('parse-packagejson-name');
 

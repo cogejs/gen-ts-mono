@@ -1,7 +1,7 @@
 import path from 'path';
 import mm from 'micromatch';
 import chalk from 'chalk';
-import {Template, InstallOptions} from 'coge-generator';
+import {Template, InstallOptions} from '@coge/generator';
 
 const pkg = require('../../package.json');
 

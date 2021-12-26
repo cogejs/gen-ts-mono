@@ -2,7 +2,7 @@
 const tslib_1 = require("tslib");
 const path_1 = (0, tslib_1.__importDefault)(require("path"));
 const micromatch_1 = (0, tslib_1.__importDefault)(require("micromatch"));
-const coge_generator_1 = require("coge-generator");
+const generator_1 = require("@coge/generator");
 const parseNpmName = require('parse-packagejson-name');
 const licenses = [
     { name: 'Apache 2.0', value: 'Apache-2.0' },
@@ -17,7 +17,7 @@ const licenses = [
     { name: 'Unlicense', value: 'unlicense' },
     { name: 'No License (Copyrighted)', value: 'UNLICENSED' },
 ];
-class PackageTemplate extends coge_generator_1.Template {
+class PackageTemplate extends generator_1.Template {
     async init() {
         this._pkg = this.fs.readJsonSync('./package.json', { throws: false });
     }

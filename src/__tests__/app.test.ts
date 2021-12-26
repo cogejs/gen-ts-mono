@@ -1,4 +1,4 @@
-import {Template} from 'coge-generator';
+import {Template} from '@coge/generator';
 import AppTemplate = require('../app');
 
 describe('ts-lerna/app', () => {
