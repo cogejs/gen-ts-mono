@@ -3,7 +3,7 @@ import mm from 'micromatch';
 import chalk from 'chalk';
 import {Template, InstallOptions} from 'coge-generator';
 
-const pkg = require('../../package');
+const pkg = require('../../package.json');
 
 const appName = path.basename(process.cwd()).replace(/[\/@\s\+%:\.]+?/g, '-');
 

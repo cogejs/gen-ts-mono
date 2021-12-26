@@ -1,7 +1,7 @@
 "use strict";
 const tslib_1 = require("tslib");
-const path_1 = tslib_1.__importDefault(require("path"));
-const micromatch_1 = tslib_1.__importDefault(require("micromatch"));
+const path_1 = (0, tslib_1.__importDefault)(require("path"));
+const micromatch_1 = (0, tslib_1.__importDefault)(require("micromatch"));
 const coge_generator_1 = require("coge-generator");
 const parseNpmName = require('parse-packagejson-name');
 const licenses = [
@@ -56,7 +56,7 @@ class PackageTemplate extends coge_generator_1.Template {
     async filter(files, locals) {
         const license = locals.license || 'MIT';
         //                       | +ALL | -../licenses/..             | +../licenses/<license>.txt.ejs         |
-        return micromatch_1.default(files, [
+        return (0, micromatch_1.default)(files, [
             '**',
             `!**/licenses${path_1.default.sep}*.*`,
             `**/licenses${path_1.default.sep}${license}.*`,
