@@ -4,7 +4,6 @@ const path_1 = (0, tslib_1.__importDefault)(require("path"));
 const micromatch_1 = (0, tslib_1.__importDefault)(require("micromatch"));
 const generator_1 = require("@coge/generator");
 const parseNpmName = require('parse-packagejson-name');
-const templatePkg = require('./package.json');
 const licenses = [
     { name: 'Apache 2.0', value: 'Apache-2.0' },
     { name: 'MIT', value: 'MIT' },
