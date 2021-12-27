@@ -19,8 +19,8 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
     "build": "nb-tsc",
     "clean": "nb-clean <%-archiveName%>*.tgz dist *.tsbuildinfo package",
     "pretest": "npm run clean && npm run build",
-    "test": "nb-mocha --allow-console-logs  \"dist/__tests__/**/*.js\"",
-    "unit": "nb-mocha --allow-console-logs  \"dist/__tests__/unit/**/*.js\"",
+    "test": "npm run jest",
+    "jest": "jest",
     "verify": "npm pack && tar xf <%-archiveName%>*.tgz && tree package && npm run clean"
   },
   "dependencies": {
