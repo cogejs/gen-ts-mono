@@ -68,6 +68,7 @@ class AppTemplate extends Template {
   }
 
   async locals(locals: Record<string, any>) {
+    Object.assign(locals, await import('./package.json'));
     locals.author = locals.owner + (locals.email ? ` <${locals.email}>` : '');
     locals.year = locals.licenceYear || new Date().getFullYear().toString();
     locals.githubUsername = await this.user.github.username();

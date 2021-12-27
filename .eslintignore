@@ -4,3 +4,5 @@ coverage/
 /sandbox
 **/*.d.ts
 .eslintrc.js
+*.ejs
+*.toml

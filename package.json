@@ -19,7 +19,7 @@
     "template"
   ],
   "scripts": {
-    "prerelease": "cross-env CI=1 npm run test",
+    "prerelease": "npm run clean && npm run build:full && cross-env CI=1 npm run test:ci",
     "release": "np --no-2fa",
     "lint": "npm run prettier:check && npm run eslint",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
@@ -28,15 +28,21 @@
     "prettier:cli": "nb-prettier \"**/*.ts\" \"**/*.js\" \"**/*.md\"",
     "prettier:check": "npm run prettier:cli -- --check",
     "prettier:fix": "npm run prettier:cli -- --write",
-    "clean": "nb-clean dist coverage .nyc_output *.tsbuildinfo",
-    "build": "nb-tsc -b",
+    "clean": "nb-clean generators coverage .nyc_output *.tsbuildinfo",
+    "copyres": "cpy --cwd src --dot --parents '**/*' '!**/*.ts' ../generators",
+    "build": "npm run copyres && nb-tsc -b",
     "build:full": "npm ci --ignore-scripts && npm run clean && npm run build",
     "pretest": "npm run clean && npm run build",
     "test": "npm run jest",
     "test:ci": "npm run jest",
-    "posttest": "npm run lint",
-    "jest": "jest"
+    "jest": "jest",
+    "posttest": "npm run lint"
   },
+  "files": [
+    "README.md",
+    "generators",
+    "!*/__tests__"
+  ],
   "dependencies": {
     "@coge/generator": "^0.6.1",
     "execa": "^6.0.0",
@@ -54,6 +60,7 @@
     "@types/node": "^17.0.5",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
+    "cpy-cli": "^3.1.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",

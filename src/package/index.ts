@@ -48,6 +48,8 @@ class PackageTemplate extends Template {
   }
 
   async locals(locals: Record<string, any>) {
+    Object.assign(locals, await import('./package.json'));
+
     const parsed = parseNpmName(locals.name);
     locals.scope = parsed.scope;
     locals.projectName = parsed.fullName;

@@ -62,6 +62,7 @@ class AppTemplate extends generator_1.Template {
         ];
     }
     async locals(locals) {
+        Object.assign(locals, await Promise.resolve().then(() => (0, tslib_1.__importStar)(require('./package.json'))));
         locals.author = locals.owner + (locals.email ? ` <${locals.email}>` : '');
         locals.year = locals.licenceYear || new Date().getFullYear().toString();
         locals.githubUsername = await this.user.github.username();

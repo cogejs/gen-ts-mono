@@ -4,6 +4,7 @@ const path_1 = (0, tslib_1.__importDefault)(require("path"));
 const micromatch_1 = (0, tslib_1.__importDefault)(require("micromatch"));
 const generator_1 = require("@coge/generator");
 const parseNpmName = require('parse-packagejson-name');
+const templatePkg = require('./package.json');
 const licenses = [
     { name: 'Apache 2.0', value: 'Apache-2.0' },
     { name: 'MIT', value: 'MIT' },
@@ -44,6 +45,7 @@ class PackageTemplate extends generator_1.Template {
     }
     async locals(locals) {
         var _a;
+        Object.assign(locals, await Promise.resolve().then(() => (0, tslib_1.__importStar)(require('./package.json'))));
         const parsed = parseNpmName(locals.name);
         locals.scope = parsed.scope;
         locals.projectName = parsed.fullName;
