@@ -48,20 +48,14 @@ class PackageTemplate extends generator_1.Template {
         const parsed = parseNpmName(locals.name);
         locals.scope = parsed.scope;
         locals.projectName = parsed.fullName;
-        locals.archiveName = parsed.scope
-            ? `${parsed.scope}-${parsed.fullName}`
-            : parsed.fullName;
+        locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
         locals.author = ((_a = this._pkg) === null || _a === void 0 ? void 0 : _a.author) || '';
         return locals;
     }
     async filter(files, locals) {
         const license = locals.license || 'MIT';
         //                       | +ALL | -../licenses/..             | +../licenses/<license>.txt.ejs         |
-        return (0, micromatch_1.default)(files, [
-            '**',
-            `!**/licenses${path_1.default.sep}*.*`,
-            `**/licenses${path_1.default.sep}${license}.*`,
-        ], {});
+        return (0, micromatch_1.default)(files, ['**', `!**/licenses${path_1.default.sep}*.*`, `**/licenses${path_1.default.sep}${license}.*`], {});
     }
     async install(opts) {
         await this.spawn('git', ['init', '--quiet'], {

@@ -40,9 +40,7 @@ class AppTemplate extends Template {
         type: 'input',
         name: 'description',
         message: 'Description of the module',
-        default: this._pkg?.description
-          ? this._pkg.description
-          : `${appName} library`,
+        default: this._pkg?.description ? this._pkg.description : `${appName} library`,
       },
       {
         type: 'input',
@@ -53,8 +51,7 @@ class AppTemplate extends Template {
       {
         type: 'input',
         name: 'email',
-        message:
-          'Email of the owner?' + chalk.gray(' (for setting package.json)'),
+        message: 'Email of the owner?' + chalk.gray(' (for setting package.json)'),
         default: this.user.git.email,
       },
       {
@@ -79,15 +76,7 @@ class AppTemplate extends Template {
   async filter(files: string[], locals: {license: string}) {
     const license = locals.license || 'MIT';
     //               | +ALL | -../licenses/..                   | +../licenses/<license>.txt.ejs         |
-    return mm(
-      files,
-      [
-        '**',
-        `!**/licenses${path.sep}*.*`,
-        `**/licenses${path.sep}${license}.*`,
-      ],
-      {},
-    );
+    return mm(files, ['**', `!**/licenses${path.sep}*.*`, `**/licenses${path.sep}${license}.*`], {});
   }
 
   async install(opts?: InstallOptions) {

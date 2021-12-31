@@ -53,9 +53,7 @@ class PackageTemplate extends Template {
     const parsed = parseNpmName(locals.name);
     locals.scope = parsed.scope;
     locals.projectName = parsed.fullName;
-    locals.archiveName = parsed.scope
-      ? `${parsed.scope}-${parsed.fullName}`
-      : parsed.fullName;
+    locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
     locals.author = this._pkg?.author || '';
     return locals;
   }
@@ -63,15 +61,7 @@ class PackageTemplate extends Template {
   async filter(files: string[], locals: Record<string, any>) {
     const license = locals.license || 'MIT';
     //                       | +ALL | -../licenses/..             | +../licenses/<license>.txt.ejs         |
-    return mm(
-      files,
-      [
-        '**',
-        `!**/licenses${path.sep}*.*`,
-        `**/licenses${path.sep}${license}.*`,
-      ],
-      {},
-    );
+    return mm(files, ['**', `!**/licenses${path.sep}*.*`, `**/licenses${path.sep}${license}.*`], {});
   }
 
   async install(opts?: InstallOptions) {

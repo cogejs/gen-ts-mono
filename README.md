@@ -1,7 +1,6 @@
 # gen-ts-lerna
 
-> A coge generator for building scaffold monorepos with Lerna and TypeScript
-> tooling.
+> A coge generator for building scaffold monorepos with Lerna and TypeScript tooling.
 
 ## Usage
 
