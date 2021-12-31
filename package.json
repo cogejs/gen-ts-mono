@@ -30,7 +30,7 @@
     "prettier:fix": "npm run prettier:cli -- --write",
     "clean": "nb-clean generators coverage .nyc_output *.tsbuildinfo",
     "copyres": "cpy --cwd src --dot --parents '**/*' '!**/*.ts' ../generators",
-    "build": "npm run copyres && nb-tsc -b",
+    "build": "nb-tsc -b && npm run copyres && npm run prettier:fix",
     "build:full": "npm ci --ignore-scripts && npm run clean && npm run build",
     "pretest": "npm run clean && npm run build",
     "test": "npm run jest",
