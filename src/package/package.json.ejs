@@ -15,7 +15,6 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
   "author": "<%- author %>",
   "license": "<%- license %>",
   "scripts": {
-    "acceptance": "nb-mocha \"dist/__tests__/acceptance/**/*.js\"",
     "build": "nb-tsc",
     "clean": "nb-clean <%-archiveName%>*.tgz dist *.tsbuildinfo package",
     "pretest": "npm run clean && npm run build",
