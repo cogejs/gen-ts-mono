@@ -2,6 +2,9 @@
 to: lerna.json
 ---
 {
+  "version": "independent",
+  <%if (yarn) {%>"npmClient": "yarn",<%}%>
+  "useWorkspaces": true,
   "packages": [
     "packages/*",
     "examples/*"
@@ -28,6 +31,5 @@ to: lerna.json
       "concurrency": 8,
       "yes": true
     }
-  },
-  "version": "independent"
+  }
 }

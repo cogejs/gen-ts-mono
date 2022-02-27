@@ -1,6 +1,7 @@
 ---
 to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
 ---
+<% const pmRun = yarn ? 'yarn run' : 'npm run'%>
 {
   "name": "<%- name %>",
   "description": "<%- description %>",
@@ -14,20 +15,44 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
   },
   "author": "<%- author %>",
   "license": "<%- license %>",
-  "scripts": {
-    "build": "nb-tsc",
-    "clean": "nb-clean <%-archiveName%>*.tgz dist *.tsbuildinfo package",
-    "pretest": "npm run clean && npm run build",
-    "test": "npm run jest",
-    "jest": "jest",
-    "verify": "npm pack && tar xf <%-archiveName%>*.tgz && tree package && npm run clean"
+  "publishConfig": {
+  <% if (flat) { %>
+    "directory": "dist",
+  <% } %>
+    "access": "public"
   },
-  "dependencies": <%- h.stringify(dependencies, 2, 2, 1) %>,
-  "devDependencies": <%- h.stringify(devDependencies, 2, 2, 1) %>,
+  "scripts": {
+  <% if (flat) { %>
+    "version": "yarn run copy:assets",
+    "copy:assets": "cpy package.json .npmignore LICENSE README.md CHANGELOG.md dist",
+    "build": "nb-tsc && yarn run copy:assets",
+  <% } else { %>
+    "build": "nb-tsc",
+  <% } %>
+    "clean": "nb-clean <%-archiveName%>*.tgz dist/* *.tsbuildinfo package",
+    "pretest": "<%-pmRun%> clean && npm run build",
+    "test": "<%-pmRun%> jest",
+    "jest": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@nutol/build": "^0.2.4",
+    "@nutol/eslint-config": "^0.2.1",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.21"<% if (flat) { %>,
+    "cpy-cli": "^3.1.1"<% } %>
+  },
+<% if (flat) { %>
+  "files": [
+    "**/*",
+    "!__tests__"
+  ]
+<% } else { %>
   "files": [
     "README.md",
     "dist",
     "src",
     "!*/__tests__"
   ]
+<% } %>
 }

@@ -3,6 +3,7 @@ const tslib_1 = require("tslib");
 const path_1 = (0, tslib_1.__importDefault)(require("path"));
 const micromatch_1 = (0, tslib_1.__importDefault)(require("micromatch"));
 const generator_1 = require("@coge/generator");
+const startsWith_1 = (0, tslib_1.__importDefault)(require("tily/string/startsWith"));
 const parseNpmName = require('parse-packagejson-name');
 const licenses = [
     { name: 'Apache 2.0', value: 'Apache-2.0' },
@@ -19,7 +20,9 @@ const licenses = [
 ];
 class PackageTemplate extends generator_1.Template {
     async init() {
+        var _a;
         this._pkg = this.fs.readJsonSync('./package.json', { throws: false });
+        this._yarn = (0, startsWith_1.default)('yarn', (_a = this._pkg) === null || _a === void 0 ? void 0 : _a.packageManager);
     }
     async questions() {
         return [
@@ -40,16 +43,22 @@ class PackageTemplate extends generator_1.Template {
                 choices: licenses,
                 default: 'MIT',
             },
+            {
+                type: 'confirm',
+                name: 'flat',
+                message: 'Expose submodules to root',
+                default: false,
+            },
         ];
     }
     async locals(locals) {
-        var _a;
-        Object.assign(locals, await Promise.resolve().then(() => (0, tslib_1.__importStar)(require('./package.json'))));
+        var _a, _b;
         const parsed = parseNpmName(locals.name);
+        locals.yarn = this._yarn;
         locals.scope = parsed.scope;
         locals.projectName = parsed.fullName;
         locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
-        locals.author = ((_a = this._pkg) === null || _a === void 0 ? void 0 : _a.author) || '';
+        locals.author = (_b = (_a = this._pkg) === null || _a === void 0 ? void 0 : _a.author) !== null && _b !== void 0 ? _b : '';
         return locals;
     }
     async filter(files, locals) {
@@ -61,7 +70,11 @@ class PackageTemplate extends generator_1.Template {
         await this.spawn('git', ['init', '--quiet'], {
             cwd: this._cwd,
         });
-        await this.installDependencies(opts);
+        await this.installDependencies({
+            npm: !this._yarn,
+            yarn: this._yarn,
+            ...opts,
+        });
     }
 }
 module.exports = PackageTemplate;

@@ -1,6 +1,7 @@
 import path from 'path';
 import mm from 'micromatch';
 import {InstallOptions, Template} from '@coge/generator';
+import startsWith from 'tily/string/startsWith';
 
 const parseNpmName = require('parse-packagejson-name');
 
@@ -21,8 +22,11 @@ const licenses = [
 class PackageTemplate extends Template {
   _pkg?: Record<string, any>;
 
+  _yarn: boolean;
+
   async init() {
     this._pkg = this.fs.readJsonSync('./package.json', {throws: false});
+    this._yarn = startsWith('yarn', this._pkg?.packageManager);
   }
 
   async questions() {
@@ -44,17 +48,22 @@ class PackageTemplate extends Template {
         choices: licenses,
         default: 'MIT',
       },
+      {
+        type: 'confirm',
+        name: 'flat',
+        message: 'Expose submodules to root',
+        default: false,
+      },
     ];
   }
 
   async locals(locals: Record<string, any>) {
-    Object.assign(locals, await import('./package.json'));
-
     const parsed = parseNpmName(locals.name);
+    locals.yarn = this._yarn;
     locals.scope = parsed.scope;
     locals.projectName = parsed.fullName;
     locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
-    locals.author = this._pkg?.author || '';
+    locals.author = this._pkg?.author ?? '';
     return locals;
   }
 
@@ -68,7 +77,11 @@ class PackageTemplate extends Template {
     await this.spawn('git', ['init', '--quiet'], {
       cwd: this._cwd,
     });
-    await this.installDependencies(opts);
+    await this.installDependencies({
+      npm: !this._yarn,
+      yarn: this._yarn,
+      ...opts,
+    });
   }
 }
 

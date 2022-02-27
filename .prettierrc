@@ -11,6 +11,12 @@
         "parser": "markdown",
         "proseWrap": "always"
       }
+    },
+    {
+      "files": "**/*.ejs",
+      "options": {
+        "tabWidth": 2
+      }
     }
   ]
 }

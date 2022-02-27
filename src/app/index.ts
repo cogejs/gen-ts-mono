@@ -1,11 +1,12 @@
 import path from 'path';
 import mm from 'micromatch';
 import chalk from 'chalk';
-import {Template, InstallOptions} from '@coge/generator';
+import {InstallOptions, Template} from '@coge/generator';
+import which from 'which';
 
 const pkg = require('../../package.json');
 
-const appName = path.basename(process.cwd()).replace(/[\/@\s\+%:\.]+?/g, '-');
+const appName = path.basename(process.cwd()).replace(/[\/@\s+%:.]+?/g, '-');
 
 const licenses = [
   {name: 'Apache 2.0', value: 'Apache-2.0'},
@@ -23,13 +24,16 @@ const licenses = [
 
 class AppTemplate extends Template {
   _pkg?: Record<string, any>;
+  _locals?: Record<string, any>;
 
   async init() {
     this._pkg = this.fs.readJsonSync('./package.json', {throws: false});
   }
 
   async questions() {
-    return [
+    const hasYarn = !!(await which('yarn'));
+
+    const q = [
       {
         type: 'input',
         name: 'name',
@@ -62,14 +66,25 @@ class AppTemplate extends Template {
         default: this._pkg?.license ? this._pkg.license : 'MIT',
       },
     ];
+
+    if (hasYarn) {
+      q.push({
+        type: 'confirm',
+        name: 'yarn',
+        message: 'Yarn is available. Do you prefer to use it by default?',
+        default: true,
+      });
+    }
+
+    return q;
   }
 
   async locals(locals: Record<string, any>) {
-    Object.assign(locals, await import('./package.json'));
     locals.author = locals.owner + (locals.email ? ` <${locals.email}>` : '');
     locals.year = locals.licenceYear || new Date().getFullYear().toString();
     locals.githubUsername = await this.user.github.username();
     locals.generatorVersion = pkg.version;
+    this._locals = locals;
     return locals;
   }
 
@@ -83,7 +98,12 @@ class AppTemplate extends Template {
     await this.spawn('git', ['init', '--quiet'], {
       cwd: this._cwd,
     });
-    await this.installDependencies(opts);
+
+    await this.installDependencies({
+      npm: !this._locals?.yarn,
+      yarn: this._locals?.yarn,
+      ...opts,
+    });
   }
 }
 
