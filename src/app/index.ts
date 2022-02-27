@@ -106,7 +106,6 @@ class AppTemplate extends Template {
       ...opts,
     });
   }
-
 }
 
 export = AppTemplate;
