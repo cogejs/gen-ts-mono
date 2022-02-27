@@ -71,6 +71,8 @@ class AppTemplate extends generator_1.Template {
         return q;
     }
     async locals(locals) {
+        var _a;
+        locals.yarn = (_a = locals.yarn) !== null && _a !== void 0 ? _a : false;
         locals.author = locals.owner + (locals.email ? ` <${locals.email}>` : '');
         locals.year = locals.licenceYear || new Date().getFullYear().toString();
         locals.githubUsername = await this.user.github.username();

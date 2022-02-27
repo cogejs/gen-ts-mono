@@ -15,14 +15,23 @@ cache:
 before_script:
   - node --version
   - npm --version
+<% if (yarn) { %>
+  - npm i yarn -g
+  - yarn install
+  - yarn run build
+<% } else { %>
   - npm ci
   - npm run bootstrap
-  - npm run build:ci
+  - npm run build
+<% } %>
 
 test:
   script:
+  <% if (yarn) { %>
+    - yarn run test:ci
+  <% } else { %>
     - npm run test:ci
-    - npm run coverage:summary
+  <% } %>
   coverage: /Statements\s+:\s(\d+.?\d+)%/
   artifacts:
     when: always
