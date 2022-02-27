@@ -80,6 +80,7 @@ class AppTemplate extends Template {
   }
 
   async locals(locals: Record<string, any>) {
+    locals.yarn = locals.yarn ?? false;
     locals.author = locals.owner + (locals.email ? ` <${locals.email}>` : '');
     locals.year = locals.licenceYear || new Date().getFullYear().toString();
     locals.githubUsername = await this.user.github.username();
@@ -105,6 +106,7 @@ class AppTemplate extends Template {
       ...opts,
     });
   }
+
 }
 
 export = AppTemplate;

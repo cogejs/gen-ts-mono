@@ -23,11 +23,10 @@ npm-debug.log
 coverage
 .nyc_output
 **/*.tgz
-packages/*/dist
-examples/*/dist
 **/package
 .sandbox
 *.tsbuildinfo
 
-# ESLint cache
-.eslintcache
+# ignore dist conetents but dist directory for `flat` modules
+packages/*/dist/*
+examples/*/dist/*
