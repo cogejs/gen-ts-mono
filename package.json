@@ -29,7 +29,7 @@
     "prettier:check": "yarn run prettier:cli --check",
     "prettier:fix": "yarn run prettier:cli --write",
     "clean": "nb-clean generators/** coverage .nyc_output *.tsbuildinfo",
-    "copyres": "cpy --cwd src --dot --parents '**/*' '!**/*.ts' ../generators",
+    "copyres": "cpy --cwd=src --dot '**/*' '!**/*.ts' ../generators",
     "build": "nb-tsc -b && yarn run copyres && yarn run prettier:fix",
     "build:full": "yarn install --ignore-scripts && yarn run clean && yarn run build",
     "pretest": "yarn run clean && yarn run build",

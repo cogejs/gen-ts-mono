@@ -1,9 +1,9 @@
 "use strict";
 const tslib_1 = require("tslib");
-const path_1 = (0, tslib_1.__importDefault)(require("path"));
-const micromatch_1 = (0, tslib_1.__importDefault)(require("micromatch"));
+const path_1 = tslib_1.__importDefault(require("path"));
+const micromatch_1 = tslib_1.__importDefault(require("micromatch"));
 const generator_1 = require("@coge/generator");
-const startsWith_1 = (0, tslib_1.__importDefault)(require("tily/string/startsWith"));
+const startsWith_1 = tslib_1.__importDefault(require("tily/string/startsWith"));
 const parseNpmName = require('parse-packagejson-name');
 const licenses = [
     { name: 'Apache 2.0', value: 'Apache-2.0' },
