@@ -36,7 +36,7 @@ to: package.json
     "prettier:cli": "nb-prettier \"**/*.ts\" \"**/*.js\" \"**/*.md\"",
     "prettier:check": "<%- pmRun %> prettier:cli --check",
     "prettier:fix": "<%- pmRun %> prettier:cli --write",
-    "clean": "lerna run clean && nb-clean \"packages/*/dist\"",
+    "clean": "lerna run clean && nb-clean 'packages/*/dist'",
     "clean:lerna": "lerna clean",
     "build": "lerna run build --sort",
   <% if (yarn) { %>

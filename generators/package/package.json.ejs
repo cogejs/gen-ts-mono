@@ -29,7 +29,7 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
   <% } else { %>
     "build": "nb-tsc",
   <% } %>
-    "clean": "nb-clean <%-archiveName%>*.tgz dist/* *.tsbuildinfo package",
+    "clean": "nb-clean '<%-archiveName%>*.tgz' 'dist/*' '*.tsbuildinfo' 'package'",
     "pretest": "<%-pmRun%> clean && npm run build",
     "test": "<%-pmRun%> jest",
     "jest": "jest"
