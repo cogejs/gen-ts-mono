@@ -24,7 +24,7 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
   "scripts": {
   <% if (flat) { %>
     "version": "yarn run copy:assets",
-    "copy:assets": "cpy package.json .npmignore LICENSE README.md CHANGELOG.md dist",
+    "copy:assets": "cpy 'package.json' 'LICENSE' 'README.md' 'CHANGELOG.md' dist",
     "build": "nb-tsc && yarn run copy:assets",
   <% } else { %>
     "build": "nb-tsc",
