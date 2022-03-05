@@ -28,7 +28,7 @@ to: package.json
     "outdated": "npm outdated --depth 0 && lerna exec --no-bail \"npm outdated --depth 0\"",
   <% }%>
     "prerelease": "<%- pmRun %> build:full && <%- pmRun %> lint",
-    "release": "cross-env CI=1 lerna version && lerna publish from-git --yes",
+    "release": "<%- yarn ? 'yarn prerelease &&' : '' %>cross-env CI=1 lerna version && lerna publish from-git --yes",
     "lint": "<%- pmRun %> eslint",
     "lint:fix": "<%- pmRun %> eslint:fix",
     "eslint": "nb-eslint --report-unused-disable-directives --cache .",
@@ -38,10 +38,11 @@ to: package.json
     "prettier:fix": "<%- pmRun %> prettier:cli --write",
     "clean": "lerna run clean && nb-clean 'packages/*/dist'",
     "clean:lerna": "lerna clean",
-    "build": "lerna run build --sort",
   <% if (yarn) { %>
-    "build:full": "yarn install --frozen-lockfile --ignore-scripts && <%- pmRun %> clean && <%- pmRun %> build",
+    "build": "yarn workspaces foreach run build",
+    "build:full": "yarn install && <%- pmRun %> clean && <%- pmRun %> build",
   <% } else { %>
+    "build": "lerna run build --sort",
     "build:full": "npm ci --ignore-scripts && lerna bootstrap --ci && <%- pmRun %> clean && <%- pmRun %> build",
   <% } %>
     "pretest": "<%- pmRun %> clean && <%- pmRun %> build",
