@@ -15,10 +15,10 @@ cache:
 before_script:
   - node --version
   - npm --version
+  - yarn --version
 <% if (yarn) { %>
-  - npm i yarn -g
   - yarn install
-  - yarn run build
+  - yarn build
 <% } else { %>
   - npm ci
   - npm run bootstrap
@@ -28,7 +28,7 @@ before_script:
 test:
   script:
   <% if (yarn) { %>
-    - yarn run test:ci
+    - yarn test:coverage
   <% } else { %>
     - npm run test:ci
   <% } %>
