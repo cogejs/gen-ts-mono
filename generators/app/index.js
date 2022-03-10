@@ -95,9 +95,6 @@ class AppTemplate extends generator_1.Template {
             yarn: (_b = this._locals) === null || _b === void 0 ? void 0 : _b.yarn,
             ...opts,
         });
-        await this.spawn('yarn', ['plugin', 'import', 'workspace-tools'], {
-            cwd: this._cwd,
-        });
     }
 }
 module.exports = AppTemplate;
