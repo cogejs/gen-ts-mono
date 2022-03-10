@@ -30,8 +30,8 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
     "build": "nb-tsc",
   <% } %>
     "clean": "nb-clean '<%-archiveName%>*.tgz' 'dist/*' '*.tsbuildinfo' 'package'",
-    "pretest": "<%-pmRun%> clean && npm run build",
-    "test": "<%-pmRun%> jest",
+    "pretest": "<%-pmRun%> clean && <%-pmRun%> build",
+    "test": "<%-pmRun%> pretest && <%-pmRun%> jest",
     "jest": "jest"
   },
   "dependencies": {},

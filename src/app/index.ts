@@ -105,10 +105,6 @@ class AppTemplate extends Template {
       yarn: this._locals?.yarn,
       ...opts,
     });
-
-    await this.spawn('yarn', ['plugin', 'import', 'workspace-tools'], {
-      cwd: this._cwd,
-    });
   }
 }
 
