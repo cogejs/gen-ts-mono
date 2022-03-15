@@ -46,10 +46,10 @@ to: package.json
     "build:full": "npm ci --ignore-scripts && lerna bootstrap --ci && <%- pmRun %> clean && <%- pmRun %> build",
   <% } %>
     "pretest": "<%- pmRun %> clean && <%- pmRun %> build",
-    "test": "<%- pmRun %> jest",
-    "test:coverage": "jest --collectCoverage --coverageDirectory=\"./coverage\" --reporters=default --reporters=jest-junit --watchAll=false",
-    "jest": "jest",
-    "posttest": "<%- pmRun %> lint"
+    "test": "<%- pmRun %> pretest && <%- pmRun %> jest && <%- pmRun %> posttest",
+    "posttest": "<%- pmRun %> lint",
+    "test:ci": "jest --collectCoverage --coverageDirectory=\"./coverage\" --reporters=default --reporters=jest-junit --watchAll=false",
+    "jest": "jest"
   },
   "dependencies": {},
   "devDependencies": {
