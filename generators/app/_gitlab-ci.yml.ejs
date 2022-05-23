@@ -24,6 +24,7 @@ before_script:
   - yarn --version
 <% if (yarn) { %>
   - yarn --no-immutable
+  - yarn build
 <% } else { %>
   - npm ci
   - npm run bootstrap
