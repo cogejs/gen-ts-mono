@@ -9,20 +9,20 @@ image: node:lts
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
 cache:
-<% if (yarn) { %>
+<% if (locals.yarn) { %>
   key:
     files:
       - yarn.lock
 <% } %>
   paths:
-    - node_modules/<% if (yarn) { %>
+    - node_modules/<% if (locals.yarn) { %>
     - .yarn<% } %>
 
 before_script:
   - node --version
   - npm --version
   - yarn --version
-<% if (yarn) { %>
+<% if (locals.yarn) { %>
   - yarn --no-immutable
   - yarn build
 <% } else { %>
@@ -32,7 +32,7 @@ before_script:
 
 test:
   script:
-  <% if (yarn) { %>
+  <% if (locals.yarn) { %>
     - yarn test:ci
   <% } else { %>
     - npm run test:ci

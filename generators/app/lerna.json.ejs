@@ -3,7 +3,7 @@ to: lerna.json
 ---
 {
   "version": "independent",
-  <%if (yarn) {%>"npmClient": "yarn",<%}%>
+  <%if (locals.yarn) {%>"npmClient": "yarn",<%}%>
   "useWorkspaces": true,
   "packages": [
     "packages/*",

@@ -55,7 +55,7 @@ class PackageTemplate extends generator_1.Template {
         var _a, _b;
         const parsed = parseNpmName(locals.name);
         locals.yarn = this._yarn;
-        locals.scope = parsed.scope;
+        locals.scopeName = parsed.scope;
         locals.projectName = parsed.fullName;
         locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
         locals.author = (_b = (_a = this._pkg) === null || _a === void 0 ? void 0 : _a.author) !== null && _b !== void 0 ? _b : '';

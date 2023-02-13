@@ -3,6 +3,7 @@ generators/
 coverage/
 /sandbox
 **/*.d.ts
-.eslintrc.js
 *.ejs
 *.toml
+.eslintrc.js
+commitlint.config.js

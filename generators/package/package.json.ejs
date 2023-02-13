@@ -1,17 +1,28 @@
 ---
 to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
 ---
-<% const pmRun = yarn ? 'yarn run' : 'npm run'%>
+<% const pmRun = locals.yarn ? 'yarn run' : 'npm run'%>
 {
   "name": "<%- name %>",
   "description": "<%- description %>",
   "version": "0.1.0",
   "keywords": [
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  ],  
+  "type": "module",
+  "source": "./src/index.ts",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    }
+  },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "author": "<%- author %>",
   "license": "<%- license %>",
@@ -25,21 +36,25 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
   <% if (flat) { %>
     "version": "yarn run copy:assets",
     "copy:assets": "cpy 'package.json' 'LICENSE' 'README.md' 'CHANGELOG.md' dist",
-    "build": "nb-tsc && yarn run copy:assets",
+    "build": "tsup && yarn run copy:assets",
   <% } else { %>
-    "build": "nb-tsc",
+    "build": "tsup",
   <% } %>
-    "clean": "nb-clean '<%-archiveName%>*.tgz' 'dist/*' '*.tsbuildinfo' 'package'",
+    "clean": "del '<%-archiveName%>*.tgz' 'dist/*' '*.tsbuildinfo' 'package'",
     "pretest": "<%-pmRun%> clean && <%-pmRun%> build",
     "test": "<%-pmRun%> pretest && <%-pmRun%> jest",
     "jest": "jest"
   },
   "dependencies": {},
   "devDependencies": {
-    "@nutol/build": "^0.2.6",
-    "@nutol/eslint-config": "^0.2.2",
-    "@types/jest": "^27.5.1",
-    "@types/node": "^17.0.35"<% if (flat) { %>,
+    "@nutol/eslint-config": "^0.2.7",
+    "@swc/core": "^1.3.35",
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.13.0",
+    "jest": "^29.4.2",
+    "del-cli": "^5.0.0",
+    "tsup": "^6.6.2",
+    "tsx": "^3.12.3"<% if (flat) { %>,
     "cpy-cli": "^3.1.1"<% } %>
   },
 <% if (flat) { %>

@@ -60,7 +60,7 @@ class PackageTemplate extends Template {
   async locals(locals: Record<string, any>) {
     const parsed = parseNpmName(locals.name);
     locals.yarn = this._yarn;
-    locals.scope = parsed.scope;
+    locals.scopeName = parsed.scope;
     locals.projectName = parsed.fullName;
     locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
     locals.author = this._pkg?.author ?? '';
