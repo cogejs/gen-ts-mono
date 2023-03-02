@@ -6,7 +6,8 @@
     "rootDir": "src",
     "composite": false,
     "declaration": false,
-    "sourceMap": false
+    "sourceMap": false,
+    "incremental": false
   },
   "include": [
     "src"
