@@ -1,15 +1,20 @@
 ---
 to: <%- targetDir || 'packages' %>/<%- projectName %>/tsup.config.ts
 ---
-import {defineConfig} from 'tsup';
+import {defineConfig, Options} from 'tsup';
+import {spawnSync} from 'child_process';
 
-const baseConfig = {
+const baseConfig: Options = {
   entry: ['src/**/*.ts'],
   splitting: false,
   sourcemap: true,
   minify: false,
   shims: true,
-  dts: true,
+  dts: false,
+  // A hacking solution for declaration incremental rebuilds: https://github.com/egoist/tsup/issues/615
+  async onSuccess() {
+    spawnSync('tsc', ['--project', 'tsconfig.json', '--emitDeclarationOnly', '--declaration']);
+  },
 };
 
 export default defineConfig([
