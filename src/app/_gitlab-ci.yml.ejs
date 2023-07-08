@@ -37,11 +37,4 @@ test:
   <% } else { %>
     - npm run test:ci
   <% } %>
-  coverage: /Statements\s+:\s(\d+.?\d+)%/
-  artifacts:
-    when: always
-    paths:
-      # save coverage results
-      - coverage
-    expire_in: 10 days
 
