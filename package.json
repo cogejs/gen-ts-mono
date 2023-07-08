@@ -18,6 +18,9 @@
     "package",
     "template"
   ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "prerelease": "yarn install && yarn run clean && yarn build:full && cross-env CI=1 yarn test:ci",
     "release": "np --no-2fa --no-tests --no-cleanup",
