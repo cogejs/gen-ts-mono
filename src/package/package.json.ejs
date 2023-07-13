@@ -25,9 +25,9 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
   <% if (flat) { %>
     "version": "yarn run copy:assets",
     "copy:assets": "cpy 'package.json' 'LICENSE' 'README.md' 'CHANGELOG.md' dist",
-    "build": "nb-tsc && yarn run copy:assets",
+    "build": "nb-tsc -b && yarn run copy:assets",
   <% } else { %>
-    "build": "nb-tsc",
+    "build": "nb-tsc -b",
   <% } %>
     "clean": "del '<%-archiveName%>*.tgz' 'dist/*' '*.tsbuildinfo' 'package'",
     "pretest": "<%-pmRun%> clean && <%-pmRun%> build",
