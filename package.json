@@ -1,6 +1,6 @@
 {
   "name": "gen-ts-lerna",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A coge generator for building scaffold monorepos with Lerna and TypeScript tooling.",
   "author": "towyuan@outlook.com",
   "license": "MIT",
@@ -86,6 +86,6 @@
     "hooks": {
       "after:bump": "yarn"
     }
-  },  
+  },
   "packageManager": "yarn@3.4.1"
 }
