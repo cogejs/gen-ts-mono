@@ -2,15 +2,18 @@
 to: .eslintrc.js
 ---
 module.exports = {
-  extends: [
-    '@nutol/eslint-config/eslintrc.js',
-    'plugin:prettier/recommended',
-  ],
-  plugins: ['prettier'],
+  extends: ['@nutol/eslint-config/eslintrc.js', 'plugin:prettier/recommended'],
+  plugins: ['import', 'simple-import-sort', 'prettier'],
   overrides: [
     {
       files: ['**/*.ts'],
-      rules: {},
+      rules: {
+        'simple-import-sort/imports': 'error',
+        'simple-import-sort/exports': 'error',
+        'import/first': 'error',
+        'import/newline-after-import': 'error',
+        'import/no-duplicates': 'error',
+      },
     },
   ],
 };
