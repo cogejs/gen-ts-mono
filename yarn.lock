@@ -4079,9 +4079,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gen-ts-lerna@workspace:.":
+"gen-ts-mono@workspace:.":
   version: 0.0.0-use.local
-  resolution: "gen-ts-lerna@workspace:."
+  resolution: "gen-ts-mono@workspace:."
   dependencies:
     "@coge/generator": "npm:^0.7.5"
     "@nutol/build": "npm:^0.2.20"

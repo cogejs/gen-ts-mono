@@ -1,12 +1,12 @@
 {
-  "name": "gen-ts-lerna",
+  "name": "gen-ts-mono",
   "version": "1.1.2",
   "description": "A coge generator for building scaffold monorepos with Lerna and TypeScript tooling.",
   "author": "towyuan@outlook.com",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cogejs/gen-ts-lerna.git"
+    "url": "https://github.com/cogejs/gen-ts-mono.git"
   },
   "keywords": [
     "coge-generator",

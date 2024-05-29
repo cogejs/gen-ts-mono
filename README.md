@@ -1,4 +1,4 @@
-# gen-ts-lerna
+# gen-ts-mono
 
 > A coge generator for building scaffold monorepos with Lerna and TypeScript tooling.
 
@@ -9,19 +9,19 @@
 Generate the lerlna boilerplate
 
 ```bash
-> coge ts-lerna
+> coge ts-mono
 ```
 
 Create a package to packages
 
 ```bash
-> coge ts-lerna:package
+> coge ts-mono:package
 ```
 
 ### Templates
 
-- `ts-lerna:app` generate the boilerplate.
-- `ts-lerna:package` create a package to packages
+- `ts-mono:app` generate the boilerplate.
+- `ts-mono:package` create a package to packages
 
 ## Licence
 
