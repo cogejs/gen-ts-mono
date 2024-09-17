@@ -75,10 +75,25 @@ class AppTemplate extends generator_1.Template {
         locals.yarn = (_a = locals.yarn) !== null && _a !== void 0 ? _a : false;
         locals.author = locals.owner + (locals.email ? ` <${locals.email}>` : '');
         locals.year = locals.licenceYear || new Date().getFullYear().toString();
-        locals.githubUsername = await this.user.github.username();
+        locals.githubUsername = await this.getGithubUsername();
         locals.generatorVersion = pkg.version;
+        locals.project = {
+            dependencies: {
+                ...pkg.templateDependencies,
+                ...pkg.devDependencies,
+                ...pkg.dependencies,
+            },
+        };
         this._locals = locals;
         return locals;
+    }
+    async getGithubUsername() {
+        try {
+            return await this.user.github.username();
+        }
+        catch (e) {
+            return '';
+        }
     }
     async filter(files, locals) {
         const license = locals.license || 'MIT';

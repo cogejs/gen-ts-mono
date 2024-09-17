@@ -36,14 +36,14 @@ to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
   },
   "dependencies": {},
   "devDependencies": {
-    "@nutol/build": "^0.2.20",
-    "@nutol/eslint-config": "^0.2.15",
-    "@nutol/ts-config": "^0.2.2",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.12.12",
-    "jest": "^29.7.0",
-    "del-cli": "^5.1.0"<% if (flat) { %>,
-    "cpy-cli": "^5.0.0"<% } %>
+    "@nutol/build": "<%- project.dependencies['@nutol/build'] %>",
+    "@nutol/eslint-config": "<%- project.dependencies['@nutol/eslint-config'] %>",
+    "@nutol/ts-config": "<%- project.dependencies['@nutol/ts-config'] %>",
+    "@types/jest": "<%- project.dependencies['@types/jest'] %>",
+    "@types/node": "<%- project.dependencies['@types/node'] %>",
+    "jest": "<%- project.dependencies['jest'] %>",
+    "del-cli": "<%- project.dependencies['del-cli'] %>"<% if (flat) { %>,
+    "cpy-cli": "<%- project.dependencies['cpy-cli'] %>"<% } %>
   },
 <% if (flat) { %>
   "files": [

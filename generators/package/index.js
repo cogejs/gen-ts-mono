@@ -4,6 +4,7 @@ const path_1 = tslib_1.__importDefault(require("path"));
 const micromatch_1 = tslib_1.__importDefault(require("micromatch"));
 const generator_1 = require("@coge/generator");
 const startsWith_1 = tslib_1.__importDefault(require("tily/string/startsWith"));
+const pkg = require('../../package.json');
 const parseNpmName = require('parse-packagejson-name');
 const licenses = [
     { name: 'Apache 2.0', value: 'Apache-2.0' },
@@ -59,6 +60,13 @@ class PackageTemplate extends generator_1.Template {
         locals.projectName = parsed.fullName;
         locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
         locals.author = (_b = (_a = this._pkg) === null || _a === void 0 ? void 0 : _a.author) !== null && _b !== void 0 ? _b : '';
+        locals.project = {
+            dependencies: {
+                ...pkg.templateDependencies,
+                ...pkg.devDependencies,
+                ...pkg.dependencies,
+            },
+        };
         return locals;
     }
     async filter(files, locals) {

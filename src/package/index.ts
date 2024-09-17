@@ -3,6 +3,8 @@ import mm from 'micromatch';
 import {InstallOptions, Template} from '@coge/generator';
 import startsWith from 'tily/string/startsWith';
 
+const pkg = require('../../package.json');
+
 const parseNpmName = require('parse-packagejson-name');
 
 const licenses = [
@@ -64,6 +66,13 @@ class PackageTemplate extends Template {
     locals.projectName = parsed.fullName;
     locals.archiveName = parsed.scope ? `${parsed.scope}-${parsed.fullName}` : parsed.fullName;
     locals.author = this._pkg?.author ?? '';
+    locals.project = {
+      dependencies: {
+        ...pkg.templateDependencies,
+        ...pkg.devDependencies,
+        ...pkg.dependencies,
+      },
+    };
     return locals;
   }
 

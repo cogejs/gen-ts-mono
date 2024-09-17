@@ -83,10 +83,25 @@ class AppTemplate extends Template {
     locals.yarn = locals.yarn ?? false;
     locals.author = locals.owner + (locals.email ? ` <${locals.email}>` : '');
     locals.year = locals.licenceYear || new Date().getFullYear().toString();
-    locals.githubUsername = await this.user.github.username();
+    locals.githubUsername = await this.getGithubUsername();
     locals.generatorVersion = pkg.version;
+    locals.project = {
+      dependencies: {
+        ...pkg.templateDependencies,
+        ...pkg.devDependencies,
+        ...pkg.dependencies,
+      },
+    };
     this._locals = locals;
     return locals;
+  }
+
+  async getGithubUsername() {
+    try {
+      return await this.user.github.username();
+    } catch (e) {
+      return '';
+    }
   }
 
   async filter(files: string[], locals: {license: string}) {
